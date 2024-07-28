@@ -1,0 +1,186 @@
+to learn:
+1. different aspects of networking realted to fe
+2. how fe systems communicate to be systems
+3. how different systems communicate with each other
+
+
+when you want anything dynamic on fe = networking start.
+
+what protocols required?
+
+Rest APIs
+graphql - advanced concept
+gRPC - recent tech, used in be, but now come in fe
+
+graphql can be overkill sometimes.
+
+sits bw 2 systems and massages data to send the responses.
+
+
+Http 1 to http 2 to http 3 ( in youtube)
+
+don't make generic statements like graphql is always good.
+
+interview questions:
+1. nw fundamentals
+2. how internet works
+3. fe-be interaction in-depth
+4. REST concepts.
+5. Diff bw HTTP methods.
+6. HTTP Header-Based Questions.
+7. CORS in depth.
+
+as a senior have strong opinion on system being used and take stand.
+
+i have not worked on this tech but know and read about this, this and that.
+
+learn in the job, what keywords seniors/architect are talking about.
+
+
+1. How web works?
+
+when we search on google.com, return webpage being rendered.
+what happens behind the scene.
+
+open network tab in browser.
+
+first request: www.flipkart.com,
+response: html
+
+search = .css, javascript, images files in the response
+these are coming from server.
+
+my laptop can be a server.
+server =  machine that can give response.
+but our machine is limited in resources so we need high end machine.
+so we need a dedicated machine.
+
+we need a dedicated IP for each device to connect with them.
+
+no one remembers these ip address but we remembers google.com or domain name.
+
+dns = directory
+
+mobile -> cell tower -> phone company/isp -> dns
+mobile <- cell tower <- phone company <- site
+
+
+combination of wired + wireless.
+so, 1 floor is wired and all devices on this floor will be wireless.
+
+1 central router/hub connected to other floors via wire.
+
+How searching happens in dns:
+ex. www.google.com
+
+root domain = .
+top level domains = edu, org, gov, com, au
+second level domains = openoffice.org, expedia.gov, microsoft.com, 
+third level domain = www.expedia.gov, download.microsoft.com
+
+does 1 single server enough?
+we need data centers.
+
+
+phone <- satellite <- data centers
+not reliable bcoz of weather.
+
+solution: opticle fibre(speed of light fast) under the sea.
+
+how to block some sites at india level?
+
+isp architecture:
+
+home - local isp/ACT -  regional isp/jio( governed by govt.)- global isp-india - global-isp-usa - regional isp-usa -local isp-usa -- home-usa.
+
+
+Advanced- understanding web:
+
+at browser level check before going to router:
+- check in cache if ip avaible at network level.
+- in service worker do we have cache?
+- check in OS, like we change env settings. = name to ip mapping. in host file.
+- check router cache mapping domain and ip.
+- ISP level caching.
+
+ex. service-worker-stale-while-revalidate.glitch.me
+open this website, do hard reload.
+
+first data = 304 status. ie data already on broser.
+status = 200, data coming from service worker.
+
+max 6 to 8 paralle request can be made and rest will be queued.
+
+service worker step = Startup
+respondWith = 1.24 ms
+ie it didn't go to router/server.
+
+something come from disk.
+
+
+ISP concept: Peering
+
+inter country required multiple hops through local/region/global ips
+
+it can bypass regional isp and connect directly to home.
+by setup a server in regional area.
+
+ex. netflix
+
+it will host movie data in regional isp level to avoid inter country communication.
+
+
+WHOIS = give domain owner info but with privacy protection.
+
+
+client              server
+
+send syn            syn received
+                    sends syn + ack
+received syn+ack
+ack
+                    received ack    
+
+
+clien to server communication:
+dns lookup
+tcp handshake.
+ssl handshake.//for security with encryption
+http get request.
+data parcel of 14kB// first round trip will be just 14kb.
+send ack to server
+data parcel of 28kB
+send ack to server
+data parcel of 56kB
+
+
+4 steps :
+Loading = get html, css, javascript
+scripting
+rendering
+painting
+
+css = till csss loading, it will render blocking
+js = till js loading, it will block parser blocking
+
+with html we will build DOM.
+
+
+1.DOM tree.
+2.CSSOM = css tree
+
+1 + 2 = render tree contain final css properties applied.
+
+open elements tab in browser, final styls are in computed section.
+
+
+steps                       phases
+1. parsing                  loading
+2. style calculation        loading
+3. layout                   scripting + rendering.
+4. paint                    painting
+5. composting               painting
+
+defer = waits until parser is finished.
+async = executes as soon as it loads.
+
