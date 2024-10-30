@@ -1,0 +1,168 @@
+what:
+it is impt bcoz it impacts 
+    user experience.
+    productivity
+    customer satisfaction
+    revenue, profitibility
+    operationa cost
+    competitive advantage.
+    google ranking does based on performance
+    business metrics:
+        session time
+        bounce rate
+    understanding your users:(radar.cloudflare.com, analytics.google.com)
+        device used
+        network quality
+        cpu & gpu
+
+
+
+
+
+
+performance metric:
+
+core web vitals:
+
+lcp = largest contentful paint = loading. < 2.5sec
+fid = first input delay = interactivity. < 100ms
+      response of the first interfaction from user.
+cls = cumulative layout shift = visual stability. < .1
+        when we changing in the layout, like images, banner, etc.
+
+
+
+fcp = first contentful paint.
+
+
+
+Measuring performance:
+
+
+network taking time.
+server taking time.
+browser taking time.
+asset loading time.
+bundle of react js is the issue.
+rendering technique used- csr vs ssr
+
+
+Network optimization:
+
+Asset optimization:
+audio/video/images.
+
+
+React framework optimization:
+
+Build level optimization:
+
+
+Rendering Pattern optimization:
+
+
+
+In the performance tab:
+check- screenshots
+click on record and reload flipkart.com page.
+
+web.dev/articles/inp 
+
+lighthouse tab
+
+
+browser centric metric:
+1. time to first byte(TTFB)
+2. network requests
+3. DNS resolution
+4. TCP connection time
+5. DOM content loaded 
+6. Page Load
+
+user centric metric:
+1. First contentful Paint(FCP)
+2. Largest contentful Paint(LCP)
+3. First Input delay(FID)
+4. Total Blocking Time(TBT)
+5. Cumulative Layout Shift(CLS)
+
+you should have to budget for performance bcoz there is no end to it.
+
+PERFORMANCE TOOLS:
+3 personas:
+1. developer mode
+
+- Lighthouse
+
+- note: 
+ test in incognito mode bcoz existing extension can impact measurement.
+ bring the dev tool mode out in separate mode.
+ for which device to monitor - mobile or desktop?
+- its imp to decide what is importance between user experience and performance and find balance.
+
+- Network tab = order of asset.
+disable cache = uncheck, then reload
+ what different assets we are loading in network tab.
+    css, js, images, etc
+    what are statues,coming from caches, redirected...
+    what the prototypes- http2,3
+    right click and check - priority
+    indivually how much time it took - queue, dns lookup, server time,ssl handshake
+    waterfall sorting.
+    speed = fast 3g, etc
+    disk cache = disable cache. to check for 1st user.
+
+
+
+
+
+
+- performance tab.
+    check screenshots, hard reload and record.
+    js methods track in main thread.
+    GPU side.
+    layout shift.
+    checkbox memory, reload.( memory snapshots)
+
+
+
+
+2. simulated data in simulated environment
+
+- webpagetest.org
+ 
+
+3. Real user data
+
+- CrUX database( chrome user experience report)
+- devloper.chrome.com/docs/crux
+- PageSpeed.web.dev
+- here user data is last 30days tracked by CrUX.
+- only per page performance is tested and not whole website.
+- https://engineerchirag.in/ = build using normal css, html, js and performance is good.
+- requestMetrics.com
+- clarity.microsoft.com
+- NewRelic(good) 
+- Sentry
+- Google analytics
+
+
+NETWORK LAYER OPTIMIZATIONS:
+
+Critical rendering path
+    whenever browser gets html(and css),it starts to show it.
+    css = render blocking.
+    js = parsing blocking
+    first packet transfered from server to broswer is of 14KB to improve FCP.
+    technique: pass html + css + js which is minimun to render something on screen.
+    ex. done in google.com = check page source.
+minimize the HTTP requests.
+Async loading of JS: async/defer
+avoid redirection.
+resource hinting
+fetch priority
+early hints.
+http upgrade methods.( http 1.1,2,3)
+compressions: brotli/gzip
+http caching: Cache control.
+caching using service worker.

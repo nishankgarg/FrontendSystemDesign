@@ -184,3 +184,102 @@ steps                       phases
 defer = waits until parser is finished.
 async = executes as soon as it loads.
 
+---
+communication protocols
+---
+
+http:
+use case: web browser
+it make a tcp connection with server.
+makes request
+every request require new tcp connection.
+
+http3:
+establish udb connection.
+use case: iot, virutual reality.
+
+tcp:
+its a 3 handshake mechanism.
+
+syn-->
+syn+ack <-- packedId/sequenceNo is sent
+ack -->
+
+packetId is imp bcoz its reliable and make sure no packet is lost.
+
+udp:
+intent is to make fastest things.
+use case: voice/video confercing/call
+
+not make sure, packet is sent.
+
+http 3:QUIC
+
+header compression
+faster
+improved performance
+better network congestion
+based on udb connection.
+
+https:
+its more secure..
+ssl
+tls = extra handshake, get encrypted end.
+
+server encrypt that.
+client also encrypt that.
+both decrypt it.
+
+so data stealing is avoided.
+
+used i web browsing.
+
+web socket:
+use case: Live Chat
+Http upgrade = first http connection then sends 101 and make it web socket
+full duuplex
+no new connection is build but in http, tcp etc create new connection every time.
+
+
+smtp:
+
+use case sending email
+smtp server
+
+ftp:
+
+heavy file transfering.
+
+control channel
+data channel
+
+
+---
+REST APIs
+---
+
+what is:
+
+benefits?
+
+core concepts- building blocks
+
+    URL:
+    Methods:
+    headers:
+    Request:
+    Response:
+    Status code:
+    
+
+build first app
+
+postman
+
+http 1/2/3
+
+best practices
+
+advance concepts:
+
+

@@ -1,0 +1,5 @@
+plan of system design:
+
+1. general requirements
+2. special requirements
+3. 
