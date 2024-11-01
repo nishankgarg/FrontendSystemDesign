@@ -1,5 +1,161 @@
 plan of system design:
 
 1. general requirements
+    about the features we want to have.
+    infinite scrollable news feeds where stories appears based on user subscription.
+    user can share the story
+    user can post the story and attach comments, links, images and videos.
+
 2. special requirements
-3. 
+    funcctional requirements, about devices and support problems
+    we want the feature to range of devices.
+    we want the feature to be accessible for people with disabilities.
+
+3. components architecture
+    news feed = list of story component
+    story component: avatar, name, time of post, text+image content, control panel = like, comment, share.
+    comment list: list[avatar, text], comment input: comment actions.
+
+4. data entities
+    type Story = {
+        id: number;
+        comments:Comment[];
+        media: Media[];
+        date: number;
+        content: string;
+        origin:{
+            nickname: string;
+            id: string;
+            type: originType;//is the source can be page, group, user.
+            data: ...custom data for page/group.
+        }
+    }
+
+    type Comment = {
+        id:number;
+        author: string;
+        media:Media[];
+        date: number;
+        content: string;
+    }
+
+    type Media = {
+        type: 'link' | 'video' ;
+        url: string;
+    }
+
+5. data API
+    getPosts(api_key, user_id, excludeComments, cursor, pageSize, maxID)
+    createPost(api_key, user_id, post_data)
+    createComment(api_key, user_id, post_id, comment_data)
+    subscribeNewsStories()
+
+    API- can be REST or graphql
+
+6. data store
+    how to organize this data on front end.
+    we need fast access on front end.
+    define the fetching points of data.
+    we don't want multi level strucutre, we want flat strucutre
+
+    feed_stores: {[feed_id]: feed},// map structure
+    user_store:{[feed_id]: user},
+    media_store:{[feed_id]: media},
+    origin_store:{[feed_id]: entity},
+    comments_store:{[feed_id]: cm},
+    
+    edge cases?
+    we scrolling down and new story comes?
+        Long polling: 
+            disadv: ask server for data in set interval ( 2sec), traffic overhead issue, sending full request again,high latency
+            adv: just a request to send: simple
+
+        web sockets.
+            bidirectional data transfer
+            real time: fast,
+            disadv: don't support http2 protocol
+
+        SSE = server side events.
+            subscribe for events on server.
+            get updates in binary format,
+            comes under http2 protocol
+            no overhead
+            easy to load balance compare to websockets
+            longer latency than websockets(60ms)
+
+    
+
+
+7. infinite scroll
+
+    scroll down indefinitely
+    no pagination
+
+    lets say we have 10 storeis to show in viewport.
+
+    layout:
+    Top padding
+    Top sentinel
+    story 1
+    story 2
+    ...
+
+    story 10
+    Bottom sentinel
+    Bottom padding
+
+    store can store 100 stories.
+
+    when we scroll down, we replace the stories with new one and maintain the number of down stories element.
+    we divie the page into
+        yellow: seen by user
+        green: active window.Act as sliding window.constant number of 5. 
+        red: intersection zone, from here new storeis need to be loaded.
+        violet: future stories, not loaded yet.
+
+8. optimization
+    Network performance
+        optimize assets to load them faster.
+        ex. gzip, brottle
+        load images with appropriate format.
+        ex. webp, png(if browser not support webp)
+            placeholders
+            load image lazily
+        Image optimization service, takes ( image url + viewport) and return optimized image.
+
+        http2 is importance because it support multiplexing, which solves the problem of http1 of max 5 connection.
+        with multiplexing we can load hundereds of resources in parallel.
+        Bundle splitting:- feed, header, vendor, analytics scripts.
+
+    Rendering performance
+        server side rendering(SSR)
+        Inline critical styles.
+        Inline critical scripts: ie serve them inside html so we don't load any data.
+        load scripts async/defer
+            css class naming strategy: if we have multilevel csss selectors, keep is flat.
+
+    java script performance
+        do less stuff
+        do stuff async
+        cache results:if we have some heavy weight stuff we can cache it. 
+        web workers:if we don't want to block if calculations with large data required we can block 
+        the whole rendering, don't want t   o do that, js is single threaded language. do that heavy job in web worker.
+
+    PWA mode
+        service workers
+        application cache
+
+9. Accessibility
+    support different color schema - for people with color blindness.
+    all inputs and text areas, and other elements should have aria-live(screen voice over)
+    images also need to have alt attributes
+    hot keys
+        new story.
+        post story.
+        scroll down
+        scroll Top
+        call for help
+        return to main menu
+        sharing options
+
+
